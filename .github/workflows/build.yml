@@ -25,7 +25,7 @@ jobs:
   windows:
     name: Windows 11 x64 installer
     runs-on: windows-latest
-    timeout-minutes: 45
+    timeout-minutes: 50
     steps:
       - uses: actions/checkout@v4
 
@@ -48,6 +48,36 @@ jobs:
 
       - name: Build NSIS installer
         run: npm run build:win
+
+      - name: Install and launch smoke test
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $installer = Get-ChildItem -Path dist -File -Filter "TreeTalk-Desktop-*-win-x64.exe" | Select-Object -First 1
+          if (-not $installer) { throw "NSIS installer was not generated" }
+
+          Start-Process -FilePath $installer.FullName -ArgumentList "/S" -Wait
+          Start-Sleep -Seconds 3
+
+          $installedExe = Get-ChildItem -Path "$env:LOCALAPPDATA\Programs" -Recurse -File -Filter "TreeTalk Desktop.exe" -ErrorAction SilentlyContinue | Select-Object -First 1
+          if (-not $installedExe) { throw "Installed TreeTalk Desktop.exe was not found" }
+
+          $process = Start-Process -FilePath $installedExe.FullName -PassThru
+          $windowReady = $false
+          for ($i = 0; $i -lt 30; $i++) {
+            Start-Sleep -Milliseconds 500
+            if ($process.HasExited) { throw "Installed application exited during startup with code $($process.ExitCode)" }
+            $process.Refresh()
+            if ($process.MainWindowHandle -ne 0) {
+              $windowReady = $true
+              break
+            }
+          }
+          if (-not $windowReady) {
+            Stop-Process -Id $process.Id -Force -ErrorAction SilentlyContinue
+            throw "Installed application stayed running but did not create a visible main window"
+          }
+          Stop-Process -Id $process.Id -Force
 
       - uses: actions/upload-artifact@v4
         with:
