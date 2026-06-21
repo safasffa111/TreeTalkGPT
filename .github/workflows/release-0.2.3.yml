@@ -1,0 +1,84 @@
+name: Release 0.2.3 Packages
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.16.0"
+      - name: Configure registry
+        shell: bash
+        run: |
+          npm config set registry https://registry.npmjs.org/ --location=project
+          npm config delete electron_mirror --location=project || true
+          npm config delete electron_builder_binaries_mirror --location=project || true
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Run checks
+        run: npm run preflight
+      - name: Prepare release layout
+        shell: pwsh
+        run: |
+          npm pkg set version=0.2.3
+          npm pkg set build.asar=false --json
+          npm pkg delete build.asarUnpack
+      - name: Build Windows installer
+        run: npm run build:win
+      - name: Verify installed application
+        shell: pwsh
+        run: ./scripts/check-installed-app.ps1
+      - name: Upload Windows package
+        uses: actions/upload-artifact@v4
+        with:
+          name: TreeTalk-Desktop-0.2.3-Windows-x64
+          path: dist/TreeTalk-Desktop-0.2.3-win-x64.exe
+          if-no-files-found: error
+          retention-days: 14
+
+  macos:
+    runs-on: macos-14
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.16.0"
+      - name: Configure registry
+        run: |
+          npm config set registry https://registry.npmjs.org/ --location=project
+          npm config delete electron_mirror --location=project || true
+          npm config delete electron_builder_binaries_mirror --location=project || true
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: Run checks
+        run: npm run preflight
+      - name: Prepare release layout
+        run: |
+          npm pkg set version=0.2.3
+          npm pkg set build.asar=false --json
+          npm pkg delete build.asarUnpack
+          npm pkg set build.mac.bundleVersion=0.2.3
+      - name: Build macOS packages
+        run: npm run build:mac
+        env:
+          CSC_IDENTITY_AUTO_DISCOVERY: "false"
+      - name: Upload macOS packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: TreeTalk-Desktop-0.2.3-macOS
+          path: |
+            dist/*.dmg
+            dist/*.zip
+          if-no-files-found: error
+          retention-days: 14
