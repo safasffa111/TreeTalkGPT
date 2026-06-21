@@ -1,12 +1,12 @@
 {
   "name": "tree-talk-desktop",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "productName": "TreeTalk Desktop",
   "description": "Local-first AI learning stack, question tree, and knowledge warehouse desktop application.",
   "author": "TreeTalk",
   "license": "UNLICENSED",
-  "main": "backend/main.js",
+  "main": "backend/bootstrap.js",
   "scripts": {
     "start": "electron .",
     "dev": "electron .",
@@ -107,7 +107,7 @@
       "identity": null,
       "hardenedRuntime": false,
       "gatekeeperAssess": false,
-      "bundleVersion": "0.2.0",
+      "bundleVersion": "0.2.1",
       "extendInfo": {
         "NSHumanReadableCopyright": "Copyright © 2026 TreeTalk. All rights reserved."
       }
