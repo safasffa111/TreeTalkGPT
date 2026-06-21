@@ -1,0 +1,122 @@
+高等数学D2复习题
+向量代数、空间解析几何：
+１、设$\vec{a}=(1,k,2)$，$\vec{b}=(-2,1,3)$且$\vec{a}\perp \vec{b}$则$k=$ .
+$\vec{a}\perp \vec{b}\Leftrightarrow \vec{a}\cdot \vec{b}=0 \vec{a}=(1,k,2),\vec{b}=(-2,1,3) \vec{a}\cdot \vec{b}=1\cdot (-2)+k\cdot 1+2\cdot 3=4+k\Rightarrow k=-4.$
+２、过点$M(-1,0,2)$且与平面$x-3y+2z-1=0$垂直的直线方程为 .
+$x-3y+2z-1=0(1,-3,2)::x-(-1)1=y-0-3=z-22$
+３、过点$M(0,1,-2)$且与平面$x+2z=2$平行的平面方程为 .
+$x+2z=2(1,0,2)::1\cdot (x-0)+0\cdot (y-1)+2\cdot (z-(-2))=0\Rightarrow x+2z=-4$
+４、过点$M(1,1,3)$且与直线$\frac{x-1}{2}=\frac{y}{3}=z-2$垂直的平面方程是 .
+$l:x-12=y^3=z-21,l(2,3,1):::2\cdot (x-1)+3\cdot (y-1)+1\cdot (z-3)=0\Rightarrow 2x+3y+z=8$
+５、 设有直线$L$：$\begin{cases}2x+2y-z+23=0\\3x+8y+z-18=0\end{cases}$及平面【公式017待转写】：$2x-y+2z-2=0$，则直线$L$
+与平面【公式020待转写】的位置关系为 垂直
+解：平面$2x-y+2z-2=0$的法向量为$(2,-1,2)$　直线Ｌ的方向向量为：
+$\vec{n}_{1}\times \vec{n}_{2}=ijk22-1381=2-181i\to -2-131j\to +2238\vec{k}=10i\to -5j\to +10\vec{k}=(10,-5,10)=5(2,-1,2)$
+所以，垂直
+６、设直线$L_1$：$\frac{x-4}{1}=\frac{y+3}{-1}=\frac{z}{-1}$与$L_2$：$\begin{cases}x+y+3z=1\\x-y-z=3\end{cases}$，则$L_1$与$L_2$的夹角为 $\frac{\pi}{2}$
+解：直线$L_1$的方向向量为$(1,-1,-1)$，直线$L_2$的方向向量为$(2,4,-2)$，
+$cos\varphi=|s1s2||s1||s2|=0$
+微分学：
+1、函数$z=\sqrt{3-x^2-y^2}+\ln(x^2+y^2-1)$的定义域是 .
+$1I \sqrt{3-x^2-y^2}\ge 0x^2+y^2-1>0{\Rightarrow 1<x^2+y^2\le 3 I/x,y{1<x^2+y^2\le 3}$
+2、$limx,y\to (0,0)1-cosx^2+y2x^2+y^2\cdot ex2y^2=$ .
+$Sx,y\to (0,0)1-\cos(x^2+y^2)∼x^2+y222limx,y\to (0,0)1-cosx^2+y2x^2+y^2\cdot ex2y^2=limx,y\to (0,0)x^2+y222x^2+y^2\cdot ex2y^2=limx,y\to (0,0)x^2+y22\cdot ex2y^2=0$
+３、$limx,y\to (0,0)e^{xy}-1y\cdot cos(x^2+y^2)=$ .
+解$limx,y\to (0,0)e^{xy}-1xy\cdot cos(x^2+y^2)=limx,y\to (0,0)xyxycos(x^2+y^2)=limx,y\to (0,0)1cos(x^2+y^2)=1$
+4、（1）$f(x,y)$在点$x,y$处可微分是在该点连续的 条件；
+$f(x,y)$在点$x,y$处连续是在该点可微分的 条件
+（2）$f(x,y)$在点$x,y$处两偏导数存在是在该点处可微分的 条件；
+$f(x,y)$在点$x,y$处可微分是在该点处两偏导数存在的 条件
+（3）$f(x,y)$在点$x,y$处两偏导数存在且连续是在该点处可微分的 条件
+$(1)E,(2),E(3)E.$
+5、设$f(x,y)=x^2-4xy+3y^2$，则【公式054待转写】= .
+$f(x,y)=x^2-4xy+3y^2\Rightarrow f_y(x,y)=-4x+6y,f_y(1,2)=-4\cdot 1+6\cdot 2=81:limh\to 0f(1,2+h)-f(1,2)h=f_y(1,2)=8.$
+６、$fxx,y>0,f_y(x,y)<0,$（Ａ）
+$f(x,y) /Upsy/$
+$f(x,y) /Upsy/$
+$f(x,y) /Upsy/$
+$f(x,y) /Upsy/$
+７、曲线$x=t^3,y=2t,z=-t^2$在t=1处的切线方程为 ,法平面方程为 .　$t=$ 　　　 时，在此点的切线与平面$x+2y+z=1$平行
+$x=t^3,y=2t,z=-t^2(t=1::(dxdt,dydt,dzdt)|t=1=(3t^2,2,-2t)|t=1=(3,2,-2),P:(t^3,2t,-t^2)|t=1=(1,2,-1):x-13=y-22=z-(-1)-2sb:3(x-1)+2(y-2)+(-2)(z-(-1))=0\Rightarrow 3x+2y-2z-9=0$
+$(dxdt,dydt,dzdt)=(3t^2,2,-2t),sb2x-y+2z=1sLssbs(3t^2,2,-2t)(2,-1,2)=0\Rightarrow 3t^2-2t-1=0\Rightarrow t=1t=-13$８、已知$z=e^u\sin v,u=xy,v=x+y$，求 。
+($\frac{\partial z}{\partial x}=e^{xy}ysin(x+y)+cos(x+y),\frac{\partial z}{\partial y}=e^{xy}xsin(x+y)+cos(x+y)$ )
+【解】:1）$\frac{\partial z}{\partial x}=\frac{\partial z}{\partial u}\cdot \frac{\partial u}{\partial x}+\frac{\partial z}{\partial v}\cdot \frac{\partial v}{\partial x}=e^u\sin vu \cdot xyx +e^u\sin vv \cdot x+yx$
+$=e^u\sin v\cdot y+e^u\cos v\cdot 1=euy\sin v+\cos v$
+$=e^{xy}y\sin(x+y)+\cos(x+y)[]$
+2）$\frac{\partial z}{\partial y}=\frac{\partial z}{\partial u}\cdot \frac{\partial u}{\partial y}+\frac{\partial z}{\partial v}\cdot \frac{\partial v}{\partial y}=e^u\sin vu \cdot xyy +e^u\sin vv \cdot x+yy$
+$=e^u\sin v\cdot x+e^u\cos v\cdot 1=eux\sin v+\cos v$
+$=e^{xy}x\sin(x+y)+\cos(x+y)[]$
+9、函数$f(x,y)=x^2-xy+y^2$在点$(1,1)$处的沿方向$(1,2)$方向导数为 ,
+该点处各方向导数中的最大值是 ,方向是 ,
+最小值是 , 方向是 .
+$f(x,y)=x^2-xy+y^2,f_x(x,y)=2x-y,f_y(x,y)=-x+2y,f_x(1,1)=1,f_y(1,1)=1el=(cos\alpha ,cos\beta ),\frac{\partial z}{\partial l}|(1,1)=f_x(1,1)\cdot cos\alpha +f_y(1,1)\cdot cos\beta =cos\alpha +cos\beta ,cos\alpha =55,cos\beta =255$
+１０、设方程$x2z+2y2z^2+2y=0$确定函数$z=z(x,y)$，求$\frac{\partial z}{\partial x}$；$\frac{\partial z}{\partial y}$，点$(0,-1,1)$处的切平面方程为
+$\:p,p F(x,y,z)=(x2z+2y2z^2+2y)-0=x2z+2y2z^2+2y F_x(x,y,z)=2xz,F_y(x,y,z)=4yz^2+2, F_z(x,y,z)=x^2+4y2z \frac{\partial z}{\partial x}=-FxFz=-2xzx^2+4y2z,\frac{\partial z}{\partial y}=-FyFz=-4yz^2+2x^2+4y2z.$
+点$(0,-1,1)$处的切平面方程法向量为：$(F_x,F_y,F_z)(0,-1,1)=(0,-4,4)$
+点$(0,-1,1)$处的切平面方程$-4(y+1)+4(z-1)=0\Rightarrow z-y-2=0$
+１１、函数$xy-ez+y2z=0$由方程$lnz-ez=xy+z^2-1$确定求$\frac{\partial z}{\partial x}$；$\frac{\partial z}{\partial y}$
+令$F(x,y,z)=lnz+ez-xy-z^2$
+则$\frac{\partial F}{\partial x}=-y$，$\frac{\partial F}{\partial y}=-x$， $\frac{\partial F}{\partial z}=1z+ez-2z$
+所以：$\frac{\partial z}{\partial x}=-FxFz=yz1+zez-2z^2$，$\frac{\partial z}{\partial y}=-FyFz=xz1+zez-2z^2$
+１２、求函数$f(x,y)=x^3+y^3-3x^2+y^2$的极值.
+$z=f(x,y)=x^3+y^3-3x^2+y^2<.:\frac{\partial z}{\partial x}=f_x'(x,y)=3x^2-6x=3x(x-2),\frac{\partial z}{\partial y}=f_y'(x,y)=3y^2-6y=3y(y-2)\frac{\partial z}{\partial x}=0\frac{\partial z}{\partial y}=0,3x(x-2)=03y(y-2)=0{\Rightarrow x=02y=02{\Rightarrow x=0y=0{x=0y=2{x=2y=0{x=2y=2{ =f(x,y)*{(0,0)(0,2)(2,0)(2,2)B∂2z∂x^2…$
+$(2) =f(x,y){(0,2)A=fxx"(0,2)=-6,B=fxy"(0,2)=0,C=fyy"(0,2)=6 AC-B2=(-6)6-02=-36<0\Rightarrow {(0,2)/ (x,y)<,(3) =f(x,y){(2,0)A=fxx"(0,2)=6,B=fxy"(0,2)=0,C=fyy"(0,2)=-6 AC-B2=6(-6)-02=-36<0\Rightarrow {(2,0)/ (x,y)<,(4) =f(x,y){(2,2)A=fxx"(2,2)=6,B=fxy"(2,2)=0,C=fyy"(2,2)…$
+积分学：
+1、$D=(x,y)1\le x^2+y^2\le 4{},2d\sigma=_______.\iint_D$
+$bD=(x,y)1\le x^2+y^2\le 4{}b=\pi(22-12)=3\pi2d\sigma=2\iint_Dd\sigma=2\cdot 3\pi=6\pi\iint_D$
+2、设$D=x,yx^2+y^2\le 9{}$，则$9-x^2-y2d\sigma=\iint_D$ .
+$(,J:3JS:9-x^2-y2d\sigma=\iint_D12\cdot 4\pi\cdot 333=18\pi$
+3、$Ω=(x,y,z)0\le z\le \sqrt{1-x^2-y^2}{},3dv\iiint_\Omega=________.$
+$(,J:1JS:dV=\iiint_\Omega12\cdot 4\pi\cdot 133=23\pi,3dv\iiint_\Omega=2\pi.$
+4、二次积分$dxf(x,y)dyx2x\int01\int$交换积分次序后为 .
+$I=dxf(x,y)dyx2x\int01\int=f(x,y)\iint_Ddxdy,v-D:x^2\le y\le x0\le x\le 1{:X-:D9:Y-::y\le x\le y0\le y\le 1{\Rightarrow I=dyf(x,y)yy\int01\intdx$5、5、二次积分$dyf(x,y)dxy22y\int02\int$交换积分次序后为 .
+$I=dyf(x,y)dxy22y\int02\int=f(x,y)\iint_Ddxdy,v-D:y^2\le x\le 2y0\le y\le 2{:Y-:D9:X-::x^2\le y\le x0\le x\le 4{\Rightarrow I=dxf(x,y)x2x\int04\intdy$
+６、已知曲线积分$e^x\cos y+yfxdx+x^3-e^x\sin ydy\int_L$与路径无关，则$f_x=$
+.
+$1a:x^3-e^x\sin y'x=e^x\cos y+yfx'y\Rightarrow 3x^2-e^x\sin y=-e^x\sin y+f_x\Rightarrow f_x=3x^2$
+7、计算二重积分：$2xyd\sigma\iint_D$，其中$D$是由曲线$y=\frac{1}{x}$及直线$y=x$、$x=2$所围成的区域.
+$D={(x,y)|1x\le y\le x,1\le x\le 2}2xyd\sigma\iint_D=dx12\int2xydy1xx\int=[xy^2]|1xxdx12\int=(x^3-1x)dx=12\int[x44-lnx]|12=154-ln2$
+8、计算二重积分：$\frac{\sin x}{x}dxdy\iint_D$，其中$D$是由直线$y=0$、$y=x$、$x=1$所围成的区域.
+$D={(x,y)|0\le y\le x,0\le x\le 1}\frac{\sin x}{x}dxdy\iint_D=dx01\int\frac{\sin x}{x}0x\intdy=\frac{\sin x}{x}dx01\intdy0x\int=\frac{\sin x}{x}\cdot (x-0)dx01\int=sinxdx01\int=[-cosx]|01=1-cos1$
+９、计算积分$sin(x^2+y^2)dxdy\iint_D$，其中$D:4\le x^2+y^2\le 9$。
+$sin(x^2+y^2)dxdy\iint_D=d\theta rsinr223\int02\pi\intdr=2\frac{\pi}{12}(-cosr2)32=\pi(cos4-cos9)$
+１0、计算$e^x\sin y-2x-2ydx+e^x\cos y-xdy\int_L$，其中$L$是以点$(0,0)$沿曲线$y=2x-x^2$到点$A(2,0)$的一段弧.
+$I=e^x\sin y-2x-2ydx+e^x\cos y-xdy\int_L=e^x\sin y-2x-2ydx+e^x\cos y-xdyL+A\vec{O}\int-e^x\sin y-2x-2ydx+e^x\cos y-xdyA\vec{O}\int=-(e^x\cos y-xx'-e^x\sin y-2x-2yy')\iint_Ddxdy+e^x\sin y-2x-2ydx+e^x\cos y-xdyO\vec{A}\int(e^x\cos y-xx'-e^x\sin y-2x-2yy')\iint_Ddxdy=(e^x\cos y-1-e^x\cos y-2)\iint_Ddxdy=dxdy\iint_D=\pi2OA…$１1、计算$2xy^3-y2cosxdx+1-2ysinx+3x2y2dy\int_L$， 其中$L$为抛物线$2x=\piy^2$ 上从点$A(0,0)\to B\frac{\pi}{2},1$.
+$P=2xy^3-y2cosx,\frac{\partial P}{\partial y}=6xy^2-2ycosx,Q=1-2ysinx+3x2y^2,\frac{\partial Q}{\partial x}=-2ycosx+6xy^2\Rightarrow \frac{\partial P}{\partial y}=\frac{\partial Q}{\partial x}\Rightarrow I=2xy^3-y2cosxdx+1-2ysinx+3x2y2dy\int_L:(\frac{\pi}{2},0)I=2xy^3-y2cosxdx+1-2ysinx+3x2y2dyA\vec{C}\int+2xy^3-y2cosxdx+…$
+12、【公式141待转写】是介于$z=0,z=1$之间的圆柱体$x^2+y^2\le 1$的整个表面的外侧，求$x\iint_\Sigmadydz+ydzdx+zdxdy$
+【解】：$P=x\Rightarrow \frac{\partial P}{\partial x}=1$， $Q=y\Rightarrow \frac{\partial Q}{\partial y}=1$， $R=z\Rightarrow \frac{\partial R}{\partial z}=1$
+由高斯公式：
+$x\iint_\Sigmadydz+ydzdx+zdxdy=\frac{\partial P}{\partial x}+\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z}dxdydz=\iiint_\Omega3dxdydz\iiint_\Omega$
+$=3\cdot \pi\cdot 12\cdot 1=3\pi$
+所用知识点：高斯公式：设空间闭区域【公式150待转写】由光滑的曲面【公式151待转写】所围成，函数$P(x,y,z),$$Q(x,y,z),$
+$R(x,y,z)$在【公式155待转写】上具有连续偏导数，则
+$Pdydz+Qdzdx+Rdxdy\iint_\Sigma=(\frac{\partial P}{\partial x}+\iiint_\Omega\frac{\partial Q}{\partial y}+\frac{\partial R}{\partial z})dxdydz$
+其中【公式157待转写】是【公式158待转写】的整个边界曲面的外侧。
+级数：
+１、若级数$\sum_{n=1}^{\infty} (3a_n-4n^2+\frac{1}{n}^2+n)$收敛，则$\lim_{n\to\infty} a_n$= .
+$\sum_{n=1}^{\infty} p(3a_n-4n^2+\frac{1}{n}^2+n)6[\Rightarrow limn\to \infty(3a_n-4n2+1n2+n)=0\lim_{n\to\infty} a_n=13\cdot limn\to \infty((3a_n-4+1n21+\frac{1}{n})+4+1n21+\frac{1}{n})=13\cdot (limn\to \infty(3a_n-4+1n21+\frac{1}{n})+limn\to \infty^4+1n21+\frac{1}{n})=13\cdot (0+2)=23$
+2、 若级数$\sum_{n=1}^{\infty} u_n$收敛，则级数$\sum_{n=1}^{\infty} u_n^2$是（ D ）
+（A）绝对收敛 （B）条件收敛 （C）发散 （D） 可能收敛，也可能发散
+3、若级数$\sum_{n=1}^{\infty} n^{2p-3}$收敛，则$p$的取值范围为 .
+$\sum_{n=1}^{\infty} n^{2p-3}\sum_{n=1}^{\infty} =\frac{1}{n}^3-2p\Rightarrow 3-2p>1\Rightarrow \sum_{n=1}^{\infty} p<1,Sp<1,n2p-36[.$
+4、级数$\sum_{n=1}^{\infty} \frac{2^n}{3^n}$的和为 .
+$\sum_{n=1}^{\infty} Up2n3n=23+2232+2333+2434++2n3n+y:23,l:23,:231-23=2$
+5、若级数$\sum_{n=1}^{\infty} anx_n$在$x=-3$处收敛，则此级数在$x=2$的敛散性为 收敛 .
+6、若级数$\sum_{n=1}^{\infty} anx_n$在$x=3$处发散，则此级数在$x=-4$的敛散性为 $c$ .
+7、判别级数$\frac{2}{n}\cdot \sum_{n=1}^{\infty} n!n_n$的敛散性.
+$u_n=\frac{2}{n}\cdot n!nn,u_n+1=\frac{2}{n}+1\cdot (n+1)!(n+1)n+1,u_n+1u_n=\frac{2}{n}+1\cdot (n+1)!(n+1)n+1\frac{2}{n}\cdot n!nn=2\cdot (n+1)!nn(n+1)n+\frac{1}{n}!=2\cdot (n+1)nn(n+1)n+1=2\cdot nn(n+1)n=2\cdot 1(n+1)nnn=2(1+\frac{1}{n})nρ=\lim_{n\to\infty} u_n+1u_n=limn\to \infty^2(1+\frac{1}{n})n=2e,ρ<1\Rightarrow 1c…$
+8、判断下列级数的敛散性，若是交错级数，指明是条件收敛还是绝对收敛
+（1）$\sum_{n=1}^{\infty} \frac{n^3-1}{\frac{2}{n}^3+n+3}$ ； （2）$\sum_{n=1}^{\infty} e^{\frac{2}{n}}-1$ ；（3）$\sum_{n=1}^{\infty} \ln(1+\frac{3}{n^4})$ ； （4）$3nn\cdot \sum_{n=1}^{\infty} \frac{2}{n}$
+（５）$\sum_{n=1}^{\infty} 1nln1+\frac{1}{n}$　（６）$\sum_{n=1}^{\infty} (-1)^n\sin\frac{1}{n}$　（７）$\sum_{n=1}^{\infty} \frac{(-1)^n}{\ln(n+1)}$　（８）$\sum_{n=1}^{\infty} (-1)^{n+1}l^n$
+$(1)\lim_{n\to\infty} a_n=\lim_{n\to\infty} n_3-12n3+n+3=limn\to \infty1-1n32+1n2+3n3=12\ne 0\Rightarrow \sum_{n=1}^{\infty} \frac{n^3-1}{\frac{2}{n}^3+n+3}c(2) n\to \inftye\frac{2}{n}-1I\div \frac{2}{n},\lim_{n\to\infty} \sum_{n=1}^{\infty} e_\frac{2}{n}-1\frac{2}{n}=1,2nc\Rightarrow \sum_{n=1}^{\infty} e^{\frac{2}{n}}-1c(…$$(5) n\to \sum_{n=1}^{\infty} \infty\frac{1}{n}\ln 1+1n1nnI\div ,1n_n=\sum_{n=1}^{\infty} 1n32=6[\Rightarrow p6[$
+$sin1n1nI\div$，$\sum_{n=1}^{\infty} \sin \frac{1}{n}$发散，又$\sum_{n=1}^{\infty} (-1)^n\sin\frac{1}{n}$交错级数，满足莱布尼兹定理，条件收敛
+$1ln(n+1)\frac{1}{n}\to \infty,1$$\sum_{n=1}^{\infty} 1l^n+1$发散，$\sum_{n=1}^{\infty} \frac{(-1)^n}{\ln(n+1)}$交错级数，满足莱布尼兹定理，条件收敛，
+$\sum_{n=1}^{\infty} (-1)^{n+1}l^n\sum_{n=1}^{\infty} =(-1)^nl^n\sum_{n=1}^{\infty} +1l^n, \sum_{n=1}^{\infty} (-1)^nl^n\sum_{n=1}^{\infty} <y6[1l^n limn\to \sum_{n=1}^{\infty} \infty1l^n\frac{1}{n}=+\infty,\frac{1}{n}\sum_{n=1}^{\infty} c@1l^ncdpc$
+9、判别级数$\sum_{n=1}^{\infty} (-1)^{n-1}\frac{3}{\frac{2}{n}+1}$的敛散性，若收敛，指明是绝对收敛还是条件收敛？
+$\sum_{n=1}^{\infty} (-1)^{n-1}\frac{3}{\frac{2}{n}+1}=32\cdot 1+1-32\cdot 2+1+32\cdot 3+1-⋯+-\frac{1}{n}-1\frac{3}{\frac{2}{n}+1}+⋯( \sum_{n=1}^{\infty} |(-1)^{n-1}\frac{3}{\frac{2}{n}+1}\sum_{n=1}^{\infty} |=\frac{3}{\frac{2}{n}+1}[c'\frac{3}{\frac{2}{n}+1}\ge \frac{3}{\frac{2}{n}+1}\ge \sum_{n=1}^{\infty} \frac{1}{n}…$
+10、求下列幂级数的收敛半径、收敛区间、收敛域.
+1）$xnn\cdot \sum_{n=1}^{\infty} 3n$ ， 2）$(-1)nx2nn\cdot \sum_{n=1}^{\infty} \frac{2}{n}$ ， 3）$\sum_{n=1}^{\infty} \frac{(-1)^n (x+2)^n}{n}$
+$(1):xnn\cdot \sum_{n=1}^{\infty} 3n-u_n=xnn\cdot 3n,u_n+1=xn+1(n+1)\cdot 3n+1,limn\to \infty|u_n+1u_n|=limn\to \infty|xn+1(n+1)\cdot 3n+1xnn\cdot 3n|=limn\to \infty|x^3(1+\frac{1}{n})|=|x|3limn\to \infty|u_n+1u_n|=1,:|x|3=1\Rightarrow |x|=3\Rightarrow Bpxnn\cdot \sum_{n=1}^{\infty} 3n6[J:R=3I:limn\to \infty|u_n+1u_n|<1…$$(2):Bp(-1)n\frac{2}{n}\cdot \sum_{n=1}^{\infty} nx\frac{2}{n}-u_n=(-1)n\frac{2}{n}\cdot nx\frac{2}{n},u_n+1=(-1)n+1\frac{2}{n}+1\cdot (n+1)x\frac{2}{n}+2limn\to \infty|u_n+1u_n|=limn\to \infty|(-1)n+1\frac{2}{n}+1\cdot (n+1)x\frac{2}{n}+2(-1)n\frac{2}{n}\cdot nx\frac{2}{n}|=\lim_{n\to\infty} n_2(n+1)\cdot x^2=limn\to \…$
+$\sum_{n=1}^{\infty} (3):(-1)^nx+2n_n\sum_{n=1}^{\infty},x+2=y,Bp(-1)^ny^n=-y+12y^2-13y^3++⋯+-1nynn+⋯-ynp::a_n=-1nn,a_n+1=-\frac{1}{n}+\frac{1}{n}+1ρ=limn\to \infty|a_n+1a_n|=limn\to \infty|-\frac{1}{n}+\frac{1}{n}+1-1nn|=\lim_{n\to\infty} n_n+1=limn\to \sum_{n=1}^{\infty} \infty11+\frac{1}{n}=1,R=11=1Bp(-1)^ny^n6[J:R=1…$
+１1将函数$f_x=1x^2+3x+2$在$x=4$展开成幂级数.
+$f_x=1x^2+3x+2=(x+2)-(x+1)(x+1)(x+2)=1x+1-1x+2=15+(x-4)-16+(x-4)=15\cdot 11-(-x-45)-16\cdot 11-(-x-46)11-x=1+x+x^2+x^3+⋯+xn-1+⋯=xnn=0\infty\sum, x∈(-1,1)11+x=1-x+x^2-x^3+⋯+(-1)nxn+⋯=(-1)nxnn=0\infty\sum, x∈(-1,1)f_x=15\cdot (-x-45)nn=0\infty\sum-16\cdot (-x-46)nn=0\infty\sum=(-1)n(15n+1-16n+1)(x-4)nn=0\infty\sum|(-x-45)…$
