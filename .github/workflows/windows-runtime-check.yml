@@ -27,6 +27,12 @@ jobs:
         run: npm install --no-audit --no-fund
       - name: Test source
         run: npm run preflight
+      - name: Apply packaging correction
+        shell: pwsh
+        run: |
+          npm pkg set version=0.2.3
+          npm pkg set build.asar=false --json
+          npm pkg delete build.asarUnpack
       - name: Build installer
         run: npm run build:win
       - name: Check installed application
