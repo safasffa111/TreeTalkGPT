@@ -61,13 +61,7 @@ npm run build:win
 TreeTalk-Desktop-0.2.2-win-x64.exe
 ```
 
-GitHub Actions 会执行以下验证：
-
-1. 构建 NSIS 安装器；
-2. 在干净的 Windows runner 中静默安装；
-3. 从真实安装目录启动应用；
-4. 检查主窗口是否创建；
-5. 保存启动日志和 Electron 日志。
+GitHub Actions 会构建安装包，并通过独立的 Windows Runtime Check 在干净环境中安装、启动和检查窗口创建结果。
 
 ## macOS 安装包
 
@@ -92,14 +86,15 @@ TreeTalk-Desktop-0.2.2-mac-arm64.zip
 
 ```text
 Actions → Build TreeTalk Desktop
+Actions → Windows Runtime Check
 ```
 
-构建产物：
+构建和诊断产物包括：
 
 ```text
 TreeTalk-Desktop-Windows-11-x64
 TreeTalk-Desktop-macOS-x64-arm64
-TreeTalk-Desktop-Windows-startup-diagnostics
+TreeTalk-Windows-Runtime-Diagnostics
 ```
 
 ## 数据目录
