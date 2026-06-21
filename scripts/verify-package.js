@@ -8,6 +8,7 @@ const exists = (file) => fs.existsSync(path.join(root, file));
 const pkg = JSON.parse(read('package.json'));
 
 const requiredFiles = [
+  'backend/bootstrap.js',
   'backend/main.js',
   'backend/preload.js',
   'backend/attachment-extraction-worker.js',
@@ -23,12 +24,17 @@ for (const file of requiredFiles) assert(exists(file), `Missing required package
 
 assert.strictEqual(pkg.name, 'tree-talk-desktop');
 assert.strictEqual(pkg.productName, 'TreeTalk Desktop');
-assert.strictEqual(pkg.main, 'backend/main.js');
+assert.strictEqual(pkg.main, 'backend/bootstrap.js');
 assert.strictEqual(pkg.build?.appId, 'com.treetalk.desktop');
 assert.strictEqual(pkg.build?.win?.icon, 'build/icon.ico');
 assert.strictEqual(pkg.build?.mac?.icon, 'build/icon.icns');
 assert(Array.isArray(pkg.build?.asarUnpack), 'asarUnpack must be configured');
 assert(pkg.build.asarUnpack.includes('backend/attachment-extraction-worker.js'), 'Worker must be unpacked from asar');
+
+const bootstrapSource = read('backend/bootstrap.js');
+assert(bootstrapSource.includes('ensureWritableDirectory'), 'Bootstrap must create and validate a writable data directory');
+assert(bootstrapSource.includes('process.env.TREE_TALK_DATA_DIR = selectedPath'), 'Bootstrap must pass the validated path to main.js');
+assert(bootstrapSource.includes("require('./main')"), 'Bootstrap must load the Electron main process');
 
 const html = read('frontend/index.html');
 assert(html.includes('<title>TreeTalk Desktop</title>'), 'Window title is not branded');
