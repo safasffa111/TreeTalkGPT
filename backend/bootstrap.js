@@ -1,6 +1,7 @@
-const { app } = require('electron');
+const { app, dialog } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const { installStartupDiagnostics } = require('./startup-diagnostics');
 
 const isWindows = process.platform === 'win32';
 
@@ -54,9 +55,6 @@ if (!selectedPath) {
   throw new Error('TreeTalk Desktop could not create a writable data directory.');
 }
 
-// main.js calls app.setPath during module initialization. Electron requires the
-// destination directory to exist first, so the bootstrap creates and validates
-// it before loading the actual main process.
 process.env.TREE_TALK_DATA_DIR = selectedPath;
-
+installStartupDiagnostics({ app, dialog, dataRoot: selectedPath });
 require('./main');
