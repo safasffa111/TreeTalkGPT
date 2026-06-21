@@ -13,6 +13,8 @@ on:
       - "package.json"
       - ".npmrc"
       - ".github/workflows/build.yml"
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: read
