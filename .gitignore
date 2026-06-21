@@ -31,3 +31,6 @@ Desktop.ini
 # Electron local runtime data
 learning-sessions/
 learning-attachments/
+
+# Keep generated diagnostics out of source control
+treetalk-diagnostics/
