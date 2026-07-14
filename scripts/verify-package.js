@@ -18,7 +18,7 @@ const requiredFiles = [
   'build/icon.png',
   'build/icon.ico',
   'build/icon.icns',
-  '.github/workflows/build.yml',
+  '.github/workflows/release-0.2.3.yml',
 ];
 for (const file of requiredFiles) assert(exists(file), `Missing required package file: ${file}`);
 
@@ -28,8 +28,19 @@ assert.strictEqual(pkg.main, 'backend/bootstrap.js');
 assert.strictEqual(pkg.build?.appId, 'com.treetalk.desktop');
 assert.strictEqual(pkg.build?.win?.icon, 'build/icon.ico');
 assert.strictEqual(pkg.build?.mac?.icon, 'build/icon.icns');
-assert(Array.isArray(pkg.build?.asarUnpack), 'asarUnpack must be configured');
-assert(pkg.build.asarUnpack.includes('backend/attachment-extraction-worker.js'), 'Worker must be unpacked from asar');
+
+if (pkg.build?.asar === false) {
+  assert(
+    pkg.build.files.some((rule) => rule === 'backend/**/*'),
+    'The unpacked build must include all backend files',
+  );
+} else {
+  assert(Array.isArray(pkg.build?.asarUnpack), 'asarUnpack must be configured when ASAR is enabled');
+  assert(
+    pkg.build.asarUnpack.includes('backend/attachment-extraction-worker.js'),
+    'Worker must be unpacked from ASAR',
+  );
+}
 
 const bootstrapSource = read('backend/bootstrap.js');
 assert(bootstrapSource.includes('ensureWritableDirectory'), 'Bootstrap must create and validate a writable data directory');
