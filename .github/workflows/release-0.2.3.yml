@@ -2,20 +2,13 @@ name: Publish TreeTalk Desktop v0.2.3
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - ".github/workflows/release-0.2.3.yml"
-  pull_request:
-    branches: [main]
 
 permissions:
   contents: write
-  issues: write
 
 concurrency:
   group: publish-treetalk-v0.2.3
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 env:
   APP_VERSION: "0.2.3"
@@ -29,14 +22,13 @@ jobs:
       - name: Create clean draft release
         env:
           GH_TOKEN: ${{ github.token }}
-          TARGET_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
         run: |
           if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             gh release delete "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag
           fi
           gh release create "$RELEASE_TAG" \
             --repo "$GITHUB_REPOSITORY" \
-            --target "$TARGET_SHA" \
+            --target "$GITHUB_SHA" \
             --title "TreeTalk Desktop $APP_VERSION" \
             --notes "Cross-platform packages are being built." \
             --draft
@@ -203,39 +195,3 @@ jobs:
             --notes-file release-notes.md \
             --draft=false \
             --latest
-
-  report:
-    name: Report publication result
-    if: always()
-    needs: [prepare, windows, macos, release]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Create result issue
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PREPARE_RESULT: ${{ needs.prepare.result }}
-          WINDOWS_RESULT: ${{ needs.windows.result }}
-          MACOS_RESULT: ${{ needs.macos.result }}
-          RELEASE_RESULT: ${{ needs.release.result }}
-        run: |
-          if [ "$PREPARE_RESULT" = "success" ] && [ "$WINDOWS_RESULT" = "success" ] && [ "$MACOS_RESULT" = "success" ] && [ "$RELEASE_RESULT" = "success" ]; then
-            STATUS="SUCCESS"
-          else
-            STATUS="FAILED"
-            gh release delete "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
-          fi
-
-          cat > report.md <<EOF
-          Automated release publication finished.
-
-          - Draft preparation: **$PREPARE_RESULT**
-          - Windows build and upload: **$WINDOWS_RESULT**
-          - macOS build and upload: **$MACOS_RESULT**
-          - Release finalization: **$RELEASE_RESULT**
-          - Commit: \`$GITHUB_SHA\`
-          - Workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
-          EOF
-
-          gh issue create \
-            --title "[release-report] TreeTalk Desktop v0.2.3 $STATUS" \
-            --body-file report.md
