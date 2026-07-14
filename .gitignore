@@ -1,33 +1,3 @@
-# Dependencies
-node_modules/
-
-# Build and packaging output
-dist/
-out/
-release/
-coverage/
-
-# Local configuration and secrets
-.env
-.env.*
-!.env.example
-
-# Logs and temporary files
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-*.tmp
-*.bak
-
-# Editor and operating-system files
-.idea/
-.vscode/
 .DS_Store
 Thumbs.db
-Desktop.ini
-
-# Electron local runtime data
-learning-sessions/
-learning-attachments/
