@@ -22,8 +22,28 @@ env:
   RELEASE_TAG: "v0.2.3"
 
 jobs:
+  prepare:
+    name: Prepare draft release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create clean draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARGET_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+        run: |
+          if gh release view "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release delete "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag
+          fi
+          gh release create "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --target "$TARGET_SHA" \
+            --title "TreeTalk Desktop $APP_VERSION" \
+            --notes "Cross-platform packages are being built." \
+            --draft
+
   windows:
     name: Build Windows x64 packages
+    needs: prepare
     runs-on: windows-latest
     timeout-minutes: 60
     steps:
@@ -67,15 +87,20 @@ jobs:
           if (-not (Test-Path "dist/win-unpacked")) { throw "Windows unpacked directory was not generated" }
           Compress-Archive -Path "dist/win-unpacked/*" -DestinationPath "release-assets/TreeTalk-Desktop-$env:APP_VERSION-Windows-Portable-x64.zip" -CompressionLevel Optimal -Force
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: release-windows-x64
-          path: release-assets/*
-          if-no-files-found: error
-          retention-days: 30
+      - name: Upload Windows packages to draft release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $ErrorActionPreference = "Stop"
+          $assets = @(Get-ChildItem -Path release-assets -File | ForEach-Object { $_.FullName })
+          if ($assets.Count -ne 2) { throw "Expected two Windows release assets" }
+          & gh release upload $env:RELEASE_TAG @assets --repo $env:GITHUB_REPOSITORY --clobber
+          if ($LASTEXITCODE -ne 0) { throw "GitHub Release upload failed" }
 
   macos:
     name: Build macOS Intel and Apple Silicon packages
+    needs: prepare
     runs-on: macos-14
     timeout-minutes: 75
     steps:
@@ -112,32 +137,44 @@ jobs:
           test -f "release-assets/TreeTalk-Desktop-${APP_VERSION}-mac-x64.zip"
           test -f "release-assets/TreeTalk-Desktop-${APP_VERSION}-mac-arm64.zip"
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: release-macos-x64-arm64
-          path: release-assets/*
-          if-no-files-found: error
-          retention-days: 30
+      - name: Upload macOS packages to draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload "$RELEASE_TAG" release-assets/* \
+            --repo "$GITHUB_REPOSITORY" \
+            --clobber
 
   release:
-    name: Create GitHub Release
+    name: Finalize GitHub Release
     needs: [windows, macos]
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: release-*
-          path: release-assets
-          merge-multiple: true
+      - name: Download uploaded release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p release-assets
+          gh release download "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --dir release-assets
+          test "$(find release-assets -maxdepth 1 -type f | wc -l)" -eq 6
 
-      - name: Generate SHA-256 checksums
+      - name: Generate and upload SHA-256 checksums
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           cd release-assets
           sha256sum * > SHA256SUMS.txt
           cat SHA256SUMS.txt
+          gh release upload "$RELEASE_TAG" SHA256SUMS.txt \
+            --repo "$GITHUB_REPOSITORY" \
+            --clobber
 
-      - name: Write release notes
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           cat > release-notes.md <<'EOF'
           # TreeTalk Desktop 0.2.3
@@ -160,46 +197,41 @@ jobs:
           TreeTalk 主窗口使用自定义无边框窗口，不显示 macOS 左上角红、黄、绿三个系统按钮；登录窗口仍保留原生按钮。
           EOF
 
-      - name: Publish release assets
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
-            gh release upload "$RELEASE_TAG" release-assets/* --clobber
-            gh release edit "$RELEASE_TAG" --title "TreeTalk Desktop $APP_VERSION" --notes-file release-notes.md
-          else
-            gh release create "$RELEASE_TAG" release-assets/* \
-              --target "$GITHUB_SHA" \
-              --title "TreeTalk Desktop $APP_VERSION" \
-              --notes-file release-notes.md \
-              --latest
-          fi
+          gh release edit "$RELEASE_TAG" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "TreeTalk Desktop $APP_VERSION" \
+            --notes-file release-notes.md \
+            --draft=false \
+            --latest
 
   report:
     name: Report publication result
     if: always()
-    needs: [windows, macos, release]
+    needs: [prepare, windows, macos, release]
     runs-on: ubuntu-latest
     steps:
       - name: Create result issue
         env:
           GH_TOKEN: ${{ github.token }}
+          PREPARE_RESULT: ${{ needs.prepare.result }}
           WINDOWS_RESULT: ${{ needs.windows.result }}
           MACOS_RESULT: ${{ needs.macos.result }}
           RELEASE_RESULT: ${{ needs.release.result }}
         run: |
-          if [ "$WINDOWS_RESULT" = "success" ] && [ "$MACOS_RESULT" = "success" ] && [ "$RELEASE_RESULT" = "success" ]; then
+          if [ "$PREPARE_RESULT" = "success" ] && [ "$WINDOWS_RESULT" = "success" ] && [ "$MACOS_RESULT" = "success" ] && [ "$RELEASE_RESULT" = "success" ]; then
             STATUS="SUCCESS"
           else
             STATUS="FAILED"
+            gh release delete "$RELEASE_TAG" --repo "$GITHUB_REPOSITORY" --yes --cleanup-tag || true
           fi
 
           cat > report.md <<EOF
           Automated release publication finished.
 
-          - Windows build: **$WINDOWS_RESULT**
-          - macOS build: **$MACOS_RESULT**
-          - GitHub Release: **$RELEASE_RESULT**
+          - Draft preparation: **$PREPARE_RESULT**
+          - Windows build and upload: **$WINDOWS_RESULT**
+          - macOS build and upload: **$MACOS_RESULT**
+          - Release finalization: **$RELEASE_RESULT**
           - Commit: \`$GITHUB_SHA\`
           - Workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
           EOF
