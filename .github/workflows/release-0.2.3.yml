@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/release-0.2.3.yml"
+  pull_request:
+    branches: [main]
 
 permissions:
   contents: write
