@@ -1,84 +1,171 @@
-name: Release 0.2.3 Packages
+name: Publish TreeTalk Desktop v0.2.3
 
 on:
   workflow_dispatch:
-  pull_request:
+  push:
     branches: [main]
+    paths:
+      - ".github/workflows/release-0.2.3.yml"
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: publish-treetalk-v0.2.3
+  cancel-in-progress: false
+
+env:
+  APP_VERSION: "0.2.3"
+  RELEASE_TAG: "v0.2.3"
 
 jobs:
   windows:
+    name: Build Windows x64 packages
     runs-on: windows-latest
-    timeout-minutes: 50
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: "22.16.0"
-      - name: Configure registry
+
+      - name: Use official package registries
         shell: bash
         run: |
           npm config set registry https://registry.npmjs.org/ --location=project
           npm config delete electron_mirror --location=project || true
           npm config delete electron_builder_binaries_mirror --location=project || true
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-      - name: Run checks
+
+      - name: Run release checks
         run: npm run preflight
-      - name: Prepare release layout
+
+      - name: Build Windows installer and portable ZIP
         shell: pwsh
         run: |
-          npm pkg set version=0.2.3
-          npm pkg set build.asar=false --json
-          npm pkg delete build.asarUnpack
-      - name: Build Windows installer
-        run: npm run build:win
-      - name: Verify installed application
+          $ErrorActionPreference = "Stop"
+          New-Item -ItemType Directory -Force -Path release-assets | Out-Null
+
+          npm run build:win
+          $installer = Get-ChildItem -Path dist -File -Filter "TreeTalk-Desktop-$env:APP_VERSION-win-x64.exe" | Select-Object -First 1
+          if (-not $installer) { throw "Windows installer was not generated" }
+          Copy-Item $installer.FullName "release-assets/TreeTalk-Desktop-$env:APP_VERSION-Windows-Setup-x64.exe"
+
+          npm run pack:win
+          if (-not (Test-Path "dist/win-unpacked")) { throw "Windows unpacked directory was not generated" }
+          Compress-Archive -Path "dist/win-unpacked/*" -DestinationPath "release-assets/TreeTalk-Desktop-$env:APP_VERSION-Windows-Portable-x64.zip" -CompressionLevel Optimal -Force
+
+      - name: Verify installed Windows application
         shell: pwsh
         run: ./scripts/check-installed-app.ps1
-      - name: Upload Windows package
-        uses: actions/upload-artifact@v4
+
+      - uses: actions/upload-artifact@v4
         with:
-          name: TreeTalk-Desktop-0.2.3-Windows-x64
-          path: dist/TreeTalk-Desktop-0.2.3-win-x64.exe
+          name: release-windows-x64
+          path: release-assets/*
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30
 
   macos:
+    name: Build macOS Intel and Apple Silicon packages
     runs-on: macos-14
-    timeout-minutes: 60
+    timeout-minutes: 75
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: "22.16.0"
-      - name: Configure registry
+
+      - name: Use official package registries
         run: |
           npm config set registry https://registry.npmjs.org/ --location=project
           npm config delete electron_mirror --location=project || true
           npm config delete electron_builder_binaries_mirror --location=project || true
+
       - name: Install dependencies
         run: npm install --no-audit --no-fund
-      - name: Run checks
+
+      - name: Run release checks
         run: npm run preflight
-      - name: Prepare release layout
-        run: |
-          npm pkg set version=0.2.3
-          npm pkg set build.asar=false --json
-          npm pkg delete build.asarUnpack
-          npm pkg set build.mac.bundleVersion=0.2.3
-      - name: Build macOS packages
+
+      - name: Build unsigned macOS DMG and ZIP packages
         run: npm run build:mac
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: "false"
-      - name: Upload macOS packages
-        uses: actions/upload-artifact@v4
+
+      - name: Collect macOS packages
+        run: |
+          mkdir -p release-assets
+          cp dist/*.dmg release-assets/
+          cp dist/*.zip release-assets/
+          test -f "release-assets/TreeTalk-Desktop-${APP_VERSION}-mac-x64.dmg"
+          test -f "release-assets/TreeTalk-Desktop-${APP_VERSION}-mac-arm64.dmg"
+          test -f "release-assets/TreeTalk-Desktop-${APP_VERSION}-mac-x64.zip"
+          test -f "release-assets/TreeTalk-Desktop-${APP_VERSION}-mac-arm64.zip"
+
+      - uses: actions/upload-artifact@v4
         with:
-          name: TreeTalk-Desktop-0.2.3-macOS
-          path: |
-            dist/*.dmg
-            dist/*.zip
+          name: release-macos-x64-arm64
+          path: release-assets/*
           if-no-files-found: error
-          retention-days: 14
+          retention-days: 30
+
+  release:
+    name: Create GitHub Release
+    needs: [windows, macos]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: release-*
+          path: release-assets
+          merge-multiple: true
+
+      - name: Generate SHA-256 checksums
+        run: |
+          cd release-assets
+          sha256sum * > SHA256SUMS.txt
+          cat SHA256SUMS.txt
+
+      - name: Write release notes
+        run: |
+          cat > release-notes.md <<'EOF'
+          # TreeTalk Desktop 0.2.3
+
+          首个公开跨平台版本，包含 Windows 11 x64、macOS Intel 和 macOS Apple Silicon 安装包。
+
+          ## 下载选择
+
+          - `TreeTalk-Desktop-0.2.3-Windows-Setup-x64.exe`：Windows 安装版
+          - `TreeTalk-Desktop-0.2.3-Windows-Portable-x64.zip`：Windows 免安装版
+          - `TreeTalk-Desktop-0.2.3-mac-arm64.dmg`：Apple Silicon Mac
+          - `TreeTalk-Desktop-0.2.3-mac-x64.dmg`：Intel Mac
+          - macOS ZIP 文件：直接包含对应架构的应用包
+          - `SHA256SUMS.txt`：文件完整性校验
+
+          ## macOS 提示
+
+          当前 macOS 包未使用 Apple Developer ID 签名。首次运行请在 Finder 中右键应用并选择“打开”。
+
+          TreeTalk 主窗口使用自定义无边框窗口，不显示 macOS 左上角红、黄、绿三个系统按钮；登录窗口仍保留原生按钮。
+          EOF
+
+      - name: Publish release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" release-assets/* --clobber
+            gh release edit "$RELEASE_TAG" --title "TreeTalk Desktop $APP_VERSION" --notes-file release-notes.md
+          else
+            gh release create "$RELEASE_TAG" release-assets/* \
+              --target "$GITHUB_SHA" \
+              --title "TreeTalk Desktop $APP_VERSION" \
+              --notes-file release-notes.md \
+              --latest
+          fi
