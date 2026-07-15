@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f6b55" />
+  <meta name="description" content="TreeTalk：用分层、多分支对话与记忆库，让复杂写作和知识探索保持清晰。下载 Windows 与 macOS 桌面版。" />
+  <meta property="og:title" content="TreeTalk｜让复杂创作长成一棵清晰的树" />
+  <meta property="og:description" content="对话 · 分层 · 记忆。管理多分支写作，并从记忆库调用人物、世界观与前文背景。" />
+  <meta property="og:type" content="website" />
+  <title>TreeTalk｜多分支 AI 创作工作台</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+  <script defer src="app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要内容</a>
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="TreeTalk 首页">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 48 48" role="img"><path d="M24 7v34M24 16 14 25M24 22l11-9M24 29l-8 7M24 31l10 7"/><circle cx="24" cy="7" r="3"/><circle cx="14" cy="25" r="3"/><circle cx="35" cy="13" r="3"/><circle cx="16" cy="36" r="3"/><circle cx="34" cy="38" r="3"/></svg>
+      </span>
+      <span>TreeTalk</span>
+    </a>
+    <nav aria-label="主导航">
+      <a href="#features">功能</a>
+      <a href="#workflow">创作方式</a>
+      <a href="#download">下载</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+    <a class="header-cta" href="#download">立即下载</a>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-glow hero-glow-a"></div>
+      <div class="hero-glow hero-glow-b"></div>
+      <div class="hero-copy">
+        <div class="eyebrow"><span></span> 专为复杂思考与长篇创作设计</div>
+        <h1>让每条灵感都有分支，<br /><em>让每段设定都有记忆。</em></h1>
+        <p class="hero-lead">TreeTalk 把线性的 AI 对话变成可分层、可回退、可引用背景的创作树。主线、人物、伏笔和世界观各自展开，又始终属于同一个故事。</p>
+        <div class="hero-actions">
+          <a class="button button-primary" data-primary-download href="https://github.com/safasffa111/TreeTalkGPT/releases/latest">下载 TreeTalk</a>
+          <a class="button button-secondary" href="https://github.com/safasffa111/TreeTalkGPT" target="_blank" rel="noreferrer">查看开源仓库</a>
+        </div>
+        <div class="release-line" aria-live="polite">
+          <span class="status-dot"></span>
+          <span data-release-label>正在读取最新版本…</span>
+          <span class="release-separator">·</span>
+          <span>Windows / macOS</span>
+        </div>
+      </div>
+
+      <div class="product-stage" aria-label="TreeTalk 产品界面示意图">
+        <div class="window-shell">
+          <div class="window-bar">
+            <div class="window-title"><span class="tiny-logo">T</span> TreeTalk</div>
+            <div class="window-controls"><i></i><i></i><i></i></div>
+          </div>
+          <div class="tab-row">
+            <button>新书构思</button>
+            <button class="active">第 12 章 · 深渊之门</button>
+            <button>人物关系</button>
+            <button>世界观</button>
+            <button class="tab-add">＋</button>
+          </div>
+          <div class="workspace">
+            <aside class="layers-panel">
+              <div class="panel-title"><span>章节分层</span><b>4 条分支</b></div>
+              <div class="layer root active"><span class="node-dot"></span><div><strong>第 12 章</strong><small>深渊之门</small></div></div>
+              <div class="layer level-1"><span class="node-dot"></span><div><strong>主线推进</strong><small>进入遗迹</small></div></div>
+              <div class="layer level-1"><span class="node-dot"></span><div><strong>人物情绪</strong><small>林夜的恐惧</small></div></div>
+              <div class="layer level-1 highlighted"><span class="node-dot"></span><div><strong>伏笔线</strong><small>重复出现的钟声</small></div></div>
+              <div class="layer level-2"><span class="node-dot"></span><div><strong>钟声来源</strong><small>旧城地下</small></div></div>
+              <div class="layer level-2"><span class="node-dot"></span><div><strong>失踪名单</strong><small>与导师有关</small></div></div>
+            </aside>
+
+            <section class="chat-panel">
+              <div class="context-strip"><span>当前分支</span><strong>伏笔线 / 钟声来源</strong><i>继承第 12 章背景</i></div>
+              <div class="message user-message">钟声为什么只在林夜靠近深渊之门时出现？</div>
+              <div class="message ai-message">
+                <div class="ai-avatar">T</div>
+                <p>可以从三个方向展开：钟声是封印警报、来自林夜被抹除的记忆，或是导师留下的远程暗号。每个方向都可以继续建立独立分支。</p>
+              </div>
+              <div class="branch-options">
+                <span>封印警报</span><span>失落记忆</span><span>导师暗号</span>
+              </div>
+              <div class="composer"><span>继续追问当前分支…</span><button aria-label="发送">↑</button></div>
+            </section>
+
+            <aside class="memory-panel">
+              <div class="panel-title"><span>记忆库</span><b>已引用 3 项</b></div>
+              <div class="memory-search">⌕ 搜索人物、设定、伏笔…</div>
+              <article class="memory-card selected">
+                <div><span class="memory-type">人物卡</span><b>林夜</b></div>
+                <p>听到旧城钟声后会短暂失忆。</p>
+                <button>已引用</button>
+              </article>
+              <article class="memory-card selected">
+                <div><span class="memory-type">世界观</span><b>旧城宵禁</b></div>
+                <p>午夜后钟楼停止运行，任何钟声都不应出现。</p>
+                <button>已引用</button>
+              </article>
+              <article class="memory-card">
+                <div><span class="memory-type">前文伏笔</span><b>第 3 章黑玉徽章</b></div>
+                <p>徽章内刻着与钟楼相同的符号。</p>
+                <button>引用</button>
+              </article>
+              <div class="consistency-alert"><span>!</span><div><strong>发现设定关联</strong><small>当前钟声可能与林夜失忆规则冲突</small></div></div>
+            </aside>
+          </div>
+        </div>
+        <div class="floating-card floating-left"><span>↳</span><div><strong>多分支不串线</strong><small>每条思路独立继承上下文</small></div></div>
+        <div class="floating-card floating-right"><span>⌁</span><div><strong>背景随写随用</strong><small>人物与世界观一键引用</small></div></div>
+      </div>
+    </section>
+
+    <section class="trust-strip" aria-label="产品特点">
+      <span>本地优先</span><i></i><span>问题树分层</span><i></i><span>记忆库引用</span><i></i><span>API / 浏览器桥接</span><i></i><span>Windows & macOS</span>
+    </section>
+
+    <section class="section feature-section" id="features">
+      <div class="section-heading">
+        <span class="section-kicker">核心能力</span>
+        <h2>复杂写作需要的，不是更长的聊天记录</h2>
+        <p>TreeTalk 管理的是写作背后的思考结构：一个问题可以生长出多条路线，任何路线都能返回，过去的背景随时可以重新进入当前创作。</p>
+      </div>
+      <div class="feature-grid">
+        <article class="feature-card feature-large">
+          <div class="feature-icon">⑂</div>
+          <div class="feature-copy"><span>01 / 分层多分支</span><h3>主线、人物与伏笔，各自深入但不彼此打断</h3><p>从章节根节点建立多条创作分支。每个子问题继承父层背景，写完支线后可以立即返回原来的主线。</p></div>
+          <div class="mini-tree" aria-hidden="true">
+            <div class="mini-root">第 12 章</div>
+            <div class="mini-line"></div>
+            <div class="mini-branches"><span>主线</span><span>人物</span><span>伏笔</span></div>
+            <div class="mini-sub"><span>进入遗迹</span><span>恐惧来源</span><span>钟声真相</span></div>
+          </div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">⌁</div>
+          <div class="feature-copy"><span>02 / 记忆库</span><h3>人物卡、世界观和前文伏笔，随时引用</h3><p>在当前分支搜索背景资料，将选中的记忆带入 AI 上下文，减少设定遗忘与前后冲突。</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">▱</div>
+          <div class="feature-copy"><span>03 / 标签页</span><h3>不同创作任务分开进行</h3><p>章节推演、角色对话、世界观补充可以放在不同标签页，切换时保留各自状态。</p></div>
+        </article>
+        <article class="feature-card">
+          <div class="feature-icon">⌖</div>
+          <div class="feature-copy"><span>04 / 精准追问</span><h3>框选一句话，直接从它继续生长</h3><p>无需重新复制整段背景。选择回答中的文字、代码或公式，就能创建带完整父级上下文的新分支。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section workflow-section" id="workflow">
+      <div class="workflow-copy">
+        <span class="section-kicker">小说创作示例</span>
+        <h2>从一章的四条思路，写成一张不会丢失的剧情地图</h2>
+        <p>你可以同时探索剧情推进、人物动机、隐藏伏笔与世界规则。TreeTalk 不替你决定故事，而是让所有可能性都有清晰的位置。</p>
+        <ol class="workflow-list">
+          <li><b>建立章节根节点</b><span>写清本章目标与已有背景。</span></li>
+          <li><b>把问题拆成不同分支</b><span>主线、人物、伏笔和设定分别深入。</span></li>
+          <li><b>从记忆库补充背景</b><span>调用人物卡、时间线和前文线索。</span></li>
+          <li><b>回到父层整合选择</b><span>保留探索过程，再决定最终写法。</span></li>
+        </ol>
+      </div>
+      <div class="memory-demo">
+        <div class="memory-demo-head"><span>正在写作：第 12 章 / 钟声来源</span><b>引用背景</b></div>
+        <div class="memory-demo-body">
+          <div class="memory-source"><span>人物设定</span><strong>林夜</strong><p>听到钟声后会遗失最近十分钟的记忆。</p></div>
+          <div class="memory-source"><span>世界规则</span><strong>旧城宵禁</strong><p>午夜后钟楼停摆，钟声意味着封印被破坏。</p></div>
+          <div class="memory-source"><span>前文伏笔</span><strong>黑玉徽章</strong><p>徽章符号与钟楼内部法阵完全一致。</p></div>
+          <div class="memory-arrow">↓</div>
+          <div class="memory-result"><span>引用到当前分支</span><p>AI 根据三条背景重新分析钟声，并提示“林夜可能已经经历过一次被删除的探索”。</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section download-section" id="download">
+      <div class="download-panel">
+        <div class="download-copy">
+          <span class="section-kicker light">开始使用</span>
+          <h2>下载 TreeTalk，建立你的第一棵创作树</h2>
+          <p>安装包托管于 GitHub Releases。网页会自动读取最新发布版本，并将按钮指向对应平台文件。</p>
+          <div class="release-meta"><span data-version>最新版</span><span data-release-date>正在同步发布信息</span></div>
+        </div>
+        <div class="download-grid">
+          <article class="download-card featured">
+            <div class="os-icon windows-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+            <div><span>Windows 11 · x64</span><h3>Windows 安装版</h3><p data-win-meta>推荐普通用户下载安装</p></div>
+            <a data-win-download href="https://github.com/safasffa111/TreeTalkGPT/releases/latest">下载 .exe</a>
+          </article>
+          <article class="download-card">
+            <div class="os-icon apple-icon" aria-hidden="true">●</div>
+            <div><span>Apple Silicon</span><h3>macOS M 系列芯片</h3><p data-mac-arm-meta>适用于 M1、M2、M3、M4 等</p></div>
+            <a data-mac-arm-download href="https://github.com/safasffa111/TreeTalkGPT/releases/latest">下载 .dmg</a>
+          </article>
+          <article class="download-card">
+            <div class="os-icon intel-icon" aria-hidden="true">i</div>
+            <div><span>Intel x64</span><h3>macOS Intel 版</h3><p data-mac-intel-meta>适用于 Intel 处理器 Mac</p></div>
+            <a data-mac-intel-download href="https://github.com/safasffa111/TreeTalkGPT/releases/latest">下载 .dmg</a>
+          </article>
+          <article class="download-card quiet">
+            <div class="os-icon package-icon" aria-hidden="true">⌑</div>
+            <div><span>其他选择</span><h3>免安装版与校验文件</h3><p>查看所有历史版本、便携 ZIP 与 SHA-256</p></div>
+            <a href="https://github.com/safasffa111/TreeTalkGPT/releases" target="_blank" rel="noreferrer">全部版本</a>
+          </article>
+        </div>
+        <p class="mac-note">macOS 公开包目前未使用 Apple Developer ID 签名。首次打开时需要在 Finder 中右键 TreeTalk，选择“打开”。</p>
+      </div>
+    </section>
+
+    <section class="section faq-section" id="faq">
+      <div class="section-heading compact"><span class="section-kicker">常见问题</span><h2>下载之前，你可能想知道</h2></div>
+      <div class="faq-list">
+        <details><summary>TreeTalk 会把我的作品上传到自己的服务器吗？</summary><p>TreeTalk 采用本地优先设计，标签页、问题结构、知识与配置主要保存在你的设备中。使用模型时，当前问题和你主动引用的上下文会发送给你选择的 AI 服务商或 ChatGPT 网页服务。</p></details>
+        <details><summary>一定需要 API Key 吗？</summary><p>不一定。你可以使用 API 模式连接兼容的模型服务，也可以使用浏览器桥接模式登录自己的 ChatGPT 网页账户。</p></details>
+        <details><summary>TreeTalk 是笔记软件吗？</summary><p>它更像结构化 AI 对话与创作工作台，侧重获取、展开和回溯思路。正式排版和长期笔记仍可以交给你熟悉的写作或笔记工具。</p></details>
+        <details><summary>现在支持哪些系统？</summary><p>当前公开构建面向 Windows x64、macOS Apple Silicon 和 macOS Intel。发布页会同时提供安装包、便携包或校验文件。</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-brand"><span class="brand-mark small" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 7v34M24 16 14 25M24 22l11-9M24 29l-8 7M24 31l10 7"/><circle cx="24" cy="7" r="3"/><circle cx="14" cy="25" r="3"/><circle cx="35" cy="13" r="3"/><circle cx="16" cy="36" r="3"/><circle cx="34" cy="38" r="3"/></svg></span><div><strong>TreeTalk</strong><small>对话 · 分层 · 记忆</small></div></div>
+    <div class="footer-links"><a href="privacy.html">隐私说明</a><a href="https://github.com/safasffa111/TreeTalkGPT/issues" target="_blank" rel="noreferrer">反馈问题</a><a href="https://github.com/safasffa111/TreeTalkGPT" target="_blank" rel="noreferrer">GitHub</a></div>
+    <p>© <span data-year></span> TreeTalk. Built for ideas that branch.</p>
+  </footer>
+</body>
+</html>
