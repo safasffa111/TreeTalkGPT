@@ -1,0 +1,80 @@
+name: Withdraw incorrect v0.2.3 release
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "README.md"
+      - "PROJECT_SOURCE.md"
+      - ".github/workflows/withdraw-invalid-v0.2.3.yml"
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/withdraw-invalid-v0.2.3.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  validate-withdrawal:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Confirm withdrawal target
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Target repository: $GITHUB_REPOSITORY"
+          echo "Invalid release tag: v0.2.3"
+          if gh release view v0.2.3 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "The incorrect v0.2.3 release currently exists and will be removed after merge."
+          else
+            echo "The incorrect v0.2.3 release has already been removed."
+          fi
+
+  withdraw-release:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete incorrect release and tag
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+
+          if gh release view v0.2.3 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release delete v0.2.3 \
+              --repo "$GITHUB_REPOSITORY" \
+              --yes \
+              --cleanup-tag
+            RESULT="The incorrect v0.2.3 release and tag were deleted."
+          else
+            gh api \
+              --method DELETE \
+              "repos/$GITHUB_REPOSITORY/git/refs/tags/v0.2.3" \
+              >/dev/null 2>&1 || true
+            RESULT="The incorrect v0.2.3 release was already absent; any remaining tag was removed."
+          fi
+
+          if gh release view v0.2.3 --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "Withdrawal verification failed: v0.2.3 is still visible."
+            exit 1
+          fi
+
+          printf '%s\n' "$RESULT"
+          cat > withdrawal-report.md <<EOF
+          The invalid TreeTalk release has been withdrawn.
+
+          - Removed tag: \`v0.2.3\`
+          - Reason: the assets were built from the previous repository project, not from the verified user package.
+          - Verified input package version: \`0.1.0\`
+          - Verified input SHA-256: \`48c5e4716656c9f221b8fca99c3a9d435996884b211bfd05b1a66b142cc6fea5\`
+          - Workflow run: $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID
+          EOF
+
+          gh issue create \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "[release-withdrawal] Incorrect v0.2.3 removed" \
+            --body-file withdrawal-report.md || true
