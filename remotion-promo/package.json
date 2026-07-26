@@ -1,0 +1,29 @@
+{
+  "name": "treetalk-remotion-promo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "verify": "node scripts/verify-source.mjs",
+    "typecheck": "tsc --noEmit",
+    "still:intro": "remotion still src/index.ts TreeTalkFullPromo out/01-intro.png --frame=240",
+    "still:tabs": "remotion still src/index.ts TreeTalkFullPromo out/02-tabs.png --frame=960",
+    "still:tree": "remotion still src/index.ts TreeTalkFullPromo out/03-tree.png --frame=1740",
+    "still:selection": "remotion still src/index.ts TreeTalkFullPromo out/04-selection.png --frame=3000",
+    "still:trace": "remotion still src/index.ts TreeTalkFullPromo out/05-trace.png --frame=4140",
+    "still:context": "remotion still src/index.ts TreeTalkFullPromo out/06-context.png --frame=5100",
+    "still:ending": "remotion still src/index.ts TreeTalkFullPromo out/07-ending.png --frame=7140"
+  },
+  "dependencies": {
+    "@remotion/cli": "4.0.251",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "remotion": "4.0.251"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.11",
+    "@types/react-dom": "18.3.1",
+    "typescript": "5.6.3"
+  }
+}
